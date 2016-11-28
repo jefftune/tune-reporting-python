@@ -4,8 +4,8 @@
 #  @namespace tune_reporting
 
 __title__ = 'tune-reporting'
-__version__ = '2.0.3'
-__build__ = 0x020003
+__version__ = '2.0.4'
+__build__ = 0x020004
 __version_info__ = tuple(__version__.split('.'))
 
 __author__ = 'jefft@tune.com'

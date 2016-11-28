@@ -56,19 +56,19 @@ def tmc_auth_v2_advertiser(tmc_api_key, logger_level=logging.NOTSET, logger_form
 
         raise TuneReportingAuthError(
             error_message="TMC v2 Advertiser: Authentication: Failed",
-            exit_code=auth_ex.remote_status,
+            error_code=auth_ex.remote_status,
             errors=auth_ex.errors,
             error_request_curl=auth_ex.request_curl
         )
 
     except Exception as ex:
         print_traceback(ex)
-        exit_code = TuneRequestErrorCodes.REQ_ERR_SOFTWARE
+        error_code = TuneRequestErrorCodes.REQ_ERR_SOFTWARE
 
         log.error(
             'TMC v2 Advertiser: Authentication: Failed: Unexpected',
             extra={
-                'exit_code': exit_code,
+                'error_code': error_code,
                 'error_exception': base_class_name(ex),
                 'error_details': get_exception_message(ex)
             }
@@ -76,7 +76,7 @@ def tmc_auth_v2_advertiser(tmc_api_key, logger_level=logging.NOTSET, logger_form
 
         raise TuneReportingAuthError(
             error_message="TMC v2 Advertiser: Authentication: Failed: Unexpected",
-            exit_code=exit_code,
+            error_code=error_code,
             errors=ex,
         )
 

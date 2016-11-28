@@ -181,7 +181,7 @@ class TuneMobileAppTrackingApiBase(object):
             raise TuneReportingError(
                 error_message='Invalid JSON response: {}'.format(response.text),
                 errors=ex,
-                exit_code=TuneRequestErrorCodes.REQ_ERR_JSON_DECODING_ERROR
+                error_code=TuneRequestErrorCodes.REQ_ERR_JSON_DECODING_ERROR
             )
 
         self.logger.debug("TMC API V2: Check for Retry: Start", extra=response_json)
@@ -218,13 +218,13 @@ class TuneMobileAppTrackingApiBase(object):
 
         if tune_v2_status_code in [401, 403]:
             self.logger.error("TMC API: Request: Error", extra={'status_code': tune_v2_status_code})
-            raise TuneReportingError(error_message=tune_v2_errors_messages, exit_code=tune_v2_status_code)
+            raise TuneReportingError(error_message=tune_v2_errors_messages, error_code=tune_v2_status_code)
 
         if tune_v2_status_code in [404, 500]:
             if "Api key was not found." in tune_v2_errors_messages:
                 self.logger.error("TMC API: Request: Error", extra={'tune_v2_status_code': tune_v2_status_code})
 
-                raise TuneReportingError(error_message=tune_v2_errors_messages, exit_code=tune_v2_status_code)
+                raise TuneReportingError(error_message=tune_v2_errors_messages, error_code=tune_v2_status_code)
 
             self.logger.warning("TMC API Base: Check for Retry: Retry Candidate", extra=response_extra)
             return True
@@ -269,7 +269,7 @@ class TuneMobileAppTrackingApiBase(object):
         if auth_response.status_code != requests.codes.ok:
             raise TuneReportingError(
                 error_message="Invalid request",
-                exit_code=auth_response.status_code,
+                error_code=auth_response.status_code,
                 error_request_curl=auth_request_curl
             )
 
@@ -280,7 +280,7 @@ class TuneMobileAppTrackingApiBase(object):
             raise TuneReportingError(
                 error_message='Invalid JSON response: {}'.format(auth_response.text),
                 errors=ex,
-                exit_code=TuneRequestErrorCodes.REQ_ERR_AUTH_JSON_ERROR,
+                error_code=TuneRequestErrorCodes.REQ_ERR_AUTH_JSON_ERROR,
                 error_request_curl=auth_request_curl
             )
 
@@ -303,7 +303,7 @@ class TuneMobileAppTrackingApiBase(object):
 
             raise TuneReportingError(
                 error_message="Error status: {}".format(tmc_errors),
-                exit_code=tmc_status_code,
+                error_code=tmc_status_code,
                 error_request_curl=auth_request_curl
             )
 

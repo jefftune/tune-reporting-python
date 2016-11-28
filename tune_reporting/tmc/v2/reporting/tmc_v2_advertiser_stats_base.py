@@ -925,7 +925,7 @@ class TuneV2AdvertiserStatsBase(TuneMobileAppTrackingApi):
                     continue
 
                 else:
-                    raise TuneReportingError(error_message=error_message, exit_code=status_code)
+                    raise TuneReportingError(error_message=error_message, error_code=status_code)
 
                 if tries >= 0 and _tries <= 1:
                     if (status_code == HttpStatusCode.GATEWAY_TIMEOUT):
@@ -933,7 +933,7 @@ class TuneV2AdvertiserStatsBase(TuneMobileAppTrackingApi):
                     elif (status_code == HttpStatusCode.REQUEST_TIMEOUT):
                         raise TuneReportingError(error_message=error_message)
                     else:
-                        raise TuneReportingError(error_message=error_message, exit_code=status_code)
+                        raise TuneReportingError(error_message=error_message, error_code=status_code)
                 else:
                     self.logger.warning(error_message)
 
